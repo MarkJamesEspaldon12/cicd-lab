@@ -1,5 +1,7 @@
 name: Hello CI
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 jobs:
   hello:
     runs-on: ubuntu-latest
@@ -10,3 +12,13 @@ jobs:
         run: echo "Hello from $(uname -a)"
       - name: List repo files
         run: ls -la
+
+  info:
+    needs: hello
+    runs-on: ubuntu-latest
+    steps:
+      - name: Who, where, disk
+        run: |
+          whoami
+          pwd
+          df -h /

@@ -22,3 +22,5 @@ jobs:
           whoami
           pwd
           df -h /
+      - name: Break on purpose
+        run: exit 1

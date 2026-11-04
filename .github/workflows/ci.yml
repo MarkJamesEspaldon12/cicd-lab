@@ -1,0 +1,36 @@
+name: CI
+
+# Block 1: WHEN to run
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest        # the borrowed cloud machine
+    steps:
+      # Block 0: get your code onto the runner
+      - uses: actions/checkout@v4
+
+      # Block 2: install Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Block 3: install tools
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Block 4: lint, then test
+      - name: Lint
+        run: flake8 .
+      - name: Test
+        run: pytest
+
+      # Block 5: use the secret safely
+      - name: Check secret
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+        run: if [ -n "$APP_KEY" ]; then echo "GG"; else echo "WP"; exit 1; fi

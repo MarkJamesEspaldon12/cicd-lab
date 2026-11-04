@@ -33,4 +33,4 @@ jobs:
       - name: Check secret
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
-        run: if [ -n "$APP_KEY" ]; then echo "Sup"; else echo "Cuz"; exit 1; fi
+        run: if [ -n "$APP_KEY" ]; then echo "GG"; else echo "WP"; exit 1; fi
